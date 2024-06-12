@@ -4,6 +4,7 @@ import LandingPage from './pages/LandingPage';
 import ProfilePage from './pages/ProfilePage';
 import Failure from './pages/Failure';
 import { Privacy } from './pages/PrivacyPolicy';
+import FacebookLogin from './pages/FacebookLogin';
 
 
 const routes = createBrowserRouter([
@@ -23,6 +24,10 @@ const routes = createBrowserRouter([
   {
     path: '/privacy',
     element: <Privacy />,
+  },
+  {
+    path: '/facebook',
+    element: <FacebookLogin />,
   }
 ])
 
