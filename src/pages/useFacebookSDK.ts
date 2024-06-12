@@ -1,4 +1,3 @@
-import { config } from 'process';
 import { useEffect } from 'react';
 
 declare global {
@@ -17,11 +16,11 @@ const useFacebookSDK = () => {
     fbScript.defer = true;
     fbScript.onload = () => {
       window.FB.init({
-        appId: "439734552021456",
+        appId: "849666963647194",
         cookie: true,
         xfbml: true,
         version: 'v10.0',
-        config_id: "829573668571256"
+        // config_id: "829573668571256"
       });
     };
 
