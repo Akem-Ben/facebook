@@ -43,9 +43,3 @@ function App() {
 }
 
 export default App
-
-
-
-// FACEBOOK_APP_ID = 849666963647194
-
-// FACEBOOK_APP_SECRET = "61ccbb7fef18affb6622b8296a2d0842"
