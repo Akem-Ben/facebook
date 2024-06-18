@@ -1,10 +1,12 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './App.css'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import LandingPage from './pages/LandingPage';
 import ProfilePage from './pages/ProfilePage';
 import Failure from './pages/Failure';
 import { Privacy } from './pages/PrivacyPolicy';
-import FacebookLogin from './pages/FacebookLogin';
+
 
 
 const routes = createBrowserRouter([
@@ -25,10 +27,6 @@ const routes = createBrowserRouter([
     path: '/privacy',
     element: <Privacy />,
   },
-  {
-    path: '/facebook',
-    element: <FacebookLogin />,
-  }
 ])
 
 
@@ -37,6 +35,7 @@ function App() {
 
   return (
     <>
+    <ToastContainer />
     <RouterProvider router={routes} />
     </>
   )

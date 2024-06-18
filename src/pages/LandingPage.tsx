@@ -11,8 +11,8 @@ const LandingPage = () => {
       };
   return (
     <>
-    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: '200px'}}>
-        <button style={{padding: '20px', backgroundColor: '#ADD8E6'}} onClick={handleFacebookLogin}>{loading ? 'Loading...' : "Click here to Proceed"}</button>
+    <div className="flex justify-center items-center h-screen bg-red-800">
+        <button className="p-4 border hover:text-white hover:bg-transparent rounded-xl bg-black text-white" onClick={handleFacebookLogin}>{loading ? 'Loading...' : "Click here to Register"}</button>
     </div>
     </>
   )
