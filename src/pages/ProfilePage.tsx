@@ -2,23 +2,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { showErrorToast, showSuccessToast } from "../toastifySetup";
 import socket from "./socket";
+import { IoIosNotificationsOutline } from "react-icons/io";
+
 
 const ProfilePage = () => {
 
   const [conversations, setConversations] = useState<any>([]);
   const [myMessage, setMessage] = useState<any>('');
   const [messageLoading, setMessageLoading] = useState(false);
+  const [notification, setNotification] = useState<any>(0);
 
   const userId = '486459010555560'
-
-const getConversations= async () => {
-    try {
-      const response = await axios.get('http://localhost:3030/converse');
-        setConversations(response.data.data.reverse())
-    } catch (error) {
-      console.error(error);
-    }
-}
 
 const handleMessageChange = (e:any) => {
     setMessage(e.target.value)
@@ -30,7 +24,7 @@ const sendMessage = async () => {
 
         if(!userMessage) return alert('Please enter a message')
         setMessageLoading(true)
-        const response = await axios.post('http://localhost:3030/send-message', {
+        const response = await axios.post('https://facebook-oauth-ihe6.onrender.com/send-message', {
             userId: userId,
             message:userMessage
         });
@@ -38,7 +32,8 @@ const sendMessage = async () => {
             setMessageLoading(false)
            return showErrorToast(response.data.message)
         }
-
+        // socket.emit("sendMessage", { userId, message: userMessage })
+        setNotification((prevNotification: any) => prevNotification)
         setMessage('')
         setMessageLoading(false)
         return showSuccessToast(response.data.message)
@@ -48,22 +43,30 @@ const sendMessage = async () => {
 
 }
 
-useEffect(()=>{
+const getConversations = async () => {
+  try {
+    const response = await axios.get('https://facebook-oauth-ihe6.onrender.com/converse');
+    setConversations(response.data.data.reverse());
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-getConversations()
-
-const handleNewMessage = (message: any) => {
-    setConversations((prevConversations: any) => [message, ...prevConversations]);
-  };
-
-  socket.on("newMessage", handleNewMessage);
-
-  return () => {
+useEffect(() => {
+  const handleNewMessage = () => {
+    getConversations();
+  setNotification(notification + 1);
+    };
+    socket.on("newMessage", handleNewMessage);
+    return () => {
     socket.off("newMessage", handleNewMessage);
   };
-},[])
+}, [notification]);
+
+
   return (
-    <div className="bg-black h-screen flex justify-center items-center">
+    <div className="flex bg-black justify-around w-full h-screen">
+    <div className="bg-black h-screen w-full flex justify-center items-center">
       <div className="bg-gray-700 h-[99%] w-[40%] rounded-3xl flex items-center justify-center">
         <div className="bg-gray-500 h-[97%] w-[93%] rounded-3xl flex flex-col justify-between">
           <div className="h-[65%] rounded-tl-3xl rounded-tr-3xl pb-4 pt-4 p-2 overflow-y-scroll">
@@ -90,6 +93,11 @@ const handleNewMessage = (message: any) => {
             </button>
           </div>
         </div>
+      </div>
+    </div>
+      <div className="flex w-[70px] h-[50px] hover:cursor-pointer">
+        <IoIosNotificationsOutline className="text-white font-extrabold text-5xl p-0" />
+        <p className="text-green-400 font-extrabold">{notification}</p>
       </div>
     </div>
   );

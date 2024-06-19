@@ -11,8 +11,8 @@ const LandingPage = () => {
       };
   return (
     <>
-    <div className="flex justify-center items-center h-screen bg-red-800">
-        <button className="p-4 border hover:text-white hover:bg-transparent rounded-xl bg-black text-white" onClick={handleFacebookLogin}>{loading ? 'Loading...' : "Click here to Register"}</button>
+    <div className="flex justify-center items-center h-screen bg-red-900">
+        <button className="p-4 border hover:text-white hover:bg-green-900 rounded-xl bg-black text-white" onClick={handleFacebookLogin}>{loading ? 'Loading...' : "Click here to Register"}</button>
     </div>
     </>
   )
